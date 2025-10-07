@@ -34,17 +34,31 @@ import com.example.studysmartapp.domain.model.Subject
 import com.example.studysmartapp.presentation.components.CountCard
 import com.example.studysmartapp.presentation.components.SubjectCard
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import com.example.studysmartapp.domain.model.Task
+import com.example.studysmartapp.presentation.components.tasksList
 
 
 @Composable
 fun DashboardScreen(){
 
     val subjects = listOf(
-        Subject(name = "English", goalHours = 10f, colors = Subject.subjectCardColors[0]),
-        Subject(name = "Physics", goalHours = 10f, colors = Subject.subjectCardColors[1]),
-        Subject(name = "Maths", goalHours = 10f, colors = Subject.subjectCardColors[2]),
-        Subject(name = "Geology", goalHours = 10f, colors = Subject.subjectCardColors[3]),
-        Subject(name = "Fine Arts", goalHours = 10f, colors = Subject.subjectCardColors[4])
+        Subject(name = "English", goalHours = 10f, colors = Subject.subjectCardColors[0], subjectId = 0),
+        Subject(name = "Physics", goalHours = 10f, colors = Subject.subjectCardColors[1], subjectId = 0),
+        Subject(name = "Maths", goalHours = 10f, colors = Subject.subjectCardColors[2], subjectId = 0),
+        Subject(name = "Geology", goalHours = 10f, colors = Subject.subjectCardColors[3], subjectId = 0),
+        Subject(name = "Fine Arts", goalHours = 10f, colors = Subject.subjectCardColors[4], subjectId = 0)
+
+    )
+
+    val tasks = listOf(
+        Task(title = "Prepare notes", description = "", dueDate = 0L, priority = 1, relatedToSubject = "", isComplete = false, taskSubjectId = 0, taskId = 1),
+        Task(title = "Prepare notes", description = "", dueDate = 0L, priority = 0, relatedToSubject = "", isComplete = false, taskSubjectId = 0, taskId = 1),
+        Task(title = "Prepare notes", description = "", dueDate = 0L, priority = 1, relatedToSubject = "", isComplete = true, taskSubjectId = 0, taskId = 1),
+        Task(title = "Prepare notes", description = "", dueDate = 0L, priority = 1, relatedToSubject = "", isComplete = false, taskSubjectId = 0, taskId = 1),
+        Task(title = "Prepare notes", description = "", dueDate = 0L, priority = 2, relatedToSubject = "", isComplete = false, taskSubjectId = 0, taskId = 1),
+        Task(title = "Prepare notes", description = "", dueDate = 0L, priority = 1, relatedToSubject = "", isComplete = true, taskSubjectId = 0, taskId = 1)
+
 
     )
 
@@ -73,6 +87,26 @@ fun DashboardScreen(){
                     subjectList = subjects
                 )
             }
+            item{
+                Button(
+                    onClick = {},
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 48.dp, vertical = 20.dp)
+                ) {
+                    Text(
+                        text = "Start Study Session"
+                    )
+                }
+            }
+            tasksList(
+                sectionTitle = "UPCOMING TASKS",
+                emptyListText = "You don't have any upcoming tasks. \n Click the + button in subject screen to add new tasks.",
+                tasks = tasks,
+                onCheckBoxClick= {  },
+                onTaskCardClick = { }
+
+            )
         }
     }
 
@@ -150,7 +184,7 @@ private fun SubjectCardsSection(
             Image(
                 modifier = Modifier
                     .size(120.dp)
-                    .align (Alignment.CenterHorizontally),
+                    .align(Alignment.CenterHorizontally),
                 painter = painterResource(R.drawable.img_books),
                 contentDescription = emptyListText
             )
@@ -175,7 +209,5 @@ private fun SubjectCardsSection(
                 )
             }
         }
-
-
     }
 }
